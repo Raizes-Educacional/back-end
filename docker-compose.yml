@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  database:
+    image: mysql
+    container_name: database-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root,
+      MYSQL_ROOT_USER: root,
+    restart: always
+    ports:
+      - "3306:3306"
+  api:
+    build: './'
+    container_name: node_container
+    restart: always
+    ports:
+      - "9001:9001"
+    depends_on:
+      - database
