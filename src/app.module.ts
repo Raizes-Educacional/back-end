@@ -7,11 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 
 import { VoluntarioModule } from './voluntario/voluntario.module';
-
-import entities from './voluntario/entities';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [VoluntarioModule],
+  imports: [VoluntarioModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })
