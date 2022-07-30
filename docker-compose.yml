@@ -1,15 +1,12 @@
-version: '3.7'
+version: '3.1'
 services:
-  database:
-    image: mysql
-    container_name: database-mysql
-    command: --default-authentication-plugin=mysql_native_password
-    environment:
-      MYSQL_ROOT_PASSWORD: root,
-      MYSQL_ROOT_USER: root,
+  db:
+    image: postgres:14.2-alpine
     restart: always
+    environment:
+      POSTGRES_PASSWORD: example
     ports:
-      - "3306:3306"
+      - "5432:5432"
   api:
     build: './'
     container_name: node_container
@@ -17,4 +14,4 @@ services:
     ports:
       - "9001:9001"
     depends_on:
-      - database
+      - db

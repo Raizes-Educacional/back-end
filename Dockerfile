@@ -3,10 +3,13 @@ WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install --production
+RUN npm i
 
 COPY . .
 
-CMD [ "node", "server.js" ]
+EXPOSE 3000
 
-RUN npm start --watch
+RUN npm i -g @nestjs/cli
+RUN ls
+
+CMD npm run start:dev
