@@ -13,10 +13,7 @@ services:
     restart: always
     ports:
       - "9001:9001"
-    environment:
-      POSTGRES_PASSWORD: example
-      POSTGRES_HOST: localhost
-      POSTGRES_USER: postgres
-      POSTGRES_DATABASE: raizes
+    env_file:
+    - .env
     depends_on:
       - db

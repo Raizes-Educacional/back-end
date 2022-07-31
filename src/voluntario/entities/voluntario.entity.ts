@@ -6,14 +6,14 @@ export class Voluntario {
     type: 'bigint',
     name: 'voluntario_id',
   })
-  id: number;
+  public id: number;
 
   @Column()
-  username: string;
+  public username: string;
   @Column()
-  email: string;
+  public email: string;
   @Column()
-  password: string;
+  public password: string;
   @Column()
-  nascimento: string;
+  public nascimento: string;
 }
