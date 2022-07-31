@@ -1,25 +1,25 @@
 import { Module } from '@nestjs/common';
-
 import { AppController } from './app.controller';
-
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import { VoluntarioModule } from './voluntario/voluntario.module';
-import { DatabaseModule } from './database/database.module';
-import * as Joi from '@hapi/joi';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+import entities from './voluntario/entities/';
+
+dotenv.config();
+
 @Module({
   imports: [
     VoluntarioModule,
-    ConfigModule.forRoot({
-      validationSchema: Joi.object({
-        POSTGRES_HOST: Joi.number().required(),
-        POSTGRES_PORT: Joi.number().required(),
-        POSTGRES_USER: Joi.string().required(),
-        POSTGRES_PASSWORD: Joi.string().required(),
-        POSTGRES_DB: Joi.string().required(),
-      }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.POSTGRES_HOST,
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      entities,
+      synchronize: true,
     }),
-    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
