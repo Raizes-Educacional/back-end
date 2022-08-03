@@ -4,8 +4,7 @@ import { AppService } from './app.service';
 import { VoluntarioModule } from './voluntario/voluntario.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
-import entities from './voluntario/entities/';
-
+import Voluntario from './voluntario/entities/voluntario.entity';
 dotenv.config();
 
 @Module({
@@ -17,7 +16,7 @@ dotenv.config();
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities,
+      entities: [Voluntario],
       synchronize: true,
     }),
   ],

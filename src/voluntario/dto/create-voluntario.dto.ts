@@ -1,7 +1,6 @@
 export class CreateVoluntarioDto {
-  name: string;
+  username: string;
   email: string;
-  celular: string;
+  password: string;
   nascimento: string;
-  senha: string;
 }

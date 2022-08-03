@@ -1,16 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Voluntario {
+export default class Voluntario {
   @PrimaryGeneratedColumn({
     type: 'bigint',
     name: 'voluntario_id',
   })
-  public id: number;
+  public id?: number;
 
   @Column()
   public username: string;
-  @Column()
+  @Column({ unique: true, name: 'email' })
   public email: string;
   @Column()
   public password: string;

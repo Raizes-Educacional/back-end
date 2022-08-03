@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
 import { UpdateVoluntarioDto } from './dto/update-voluntario.dto';
+import { LoginVoluntarioDto } from './dto/login-voluntario.dto';
+
+import { InjectRepository } from '@nestjs/typeorm';
+import Voluntario from './entities/voluntario.entity';
+import { Repository } from 'typeorm/repository/Repository';
+import { string } from 'joi';
 
 @Injectable()
 export class VoluntarioService {
-  create(createVoluntarioDto: CreateVoluntarioDto) {
-    return 'This action adds a new voluntario';
-  }
+  constructor(
+    @InjectRepository(Voluntario)
+    private voluntarioRepository: Repository<Voluntario>,
+  ) {}
 
-  findAll() {
-    return `This action returns all voluntario`;
+  public createVoluntario(createVoluntarioDto: CreateVoluntarioDto) {
+    const newVoluntraio = this.voluntarioRepository.create(createVoluntarioDto);
+    this.voluntarioRepository.save(newVoluntraio);
+    return newVoluntraio;
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} voluntario`;
-  }
-
-  update(id: number, updateVoluntarioDto: UpdateVoluntarioDto) {
-    return `This action updates a #${id} voluntario`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} voluntario`;
+  async getByEmail(email: string) {
+    const user = await this.voluntarioRepository.findOneBy({ email });
+    if (user) {
+      return 'user:' + user;
+    }
+    return new HttpException(
+      'User with this email does not exist',
+      HttpStatus.NOT_FOUND,
+    );
   }
 }
