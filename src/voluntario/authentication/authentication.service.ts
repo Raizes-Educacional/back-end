@@ -8,13 +8,18 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { LoginVoluntarioDto } from '../dto/login-voluntario.dto';
+import { JwtService } from '@nestjs/jwt';
+import { access } from 'fs/promises';
 
 enum PostgresErrorCode {
   UniqueViolation = '23505',
 }
 @Injectable()
 export class AuthenticationVoluntarioService {
-  constructor(private readonly voluntarioService: VoluntarioService) {}
+  constructor(
+    private readonly voluntarioService: VoluntarioService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   public async register(registration: CreateVoluntarioDto) {
     const hashedPassword = await bcrypt.hash(registration.password, 10);
@@ -71,8 +76,13 @@ export class AuthenticationVoluntarioService {
         password,
       );
       if (passwordCompare) {
+        const payload = {
+          id: user.id,
+          email: user.email,
+        };
         return {
-          message: 'User login  witch sucess',
+          message: 'User autheticantion sucess',
+          token: this.jwtService.sign(payload),
         };
       }
     } catch (erro) {
