@@ -21,9 +21,9 @@ export class VoluntarioService {
     return newVoluntraio;
   }
   async getByEmail(email: string) {
-    const user = await this.voluntarioRepository.findOneBy({ email });
+    const user: object = await this.voluntarioRepository.findOneBy({ email });
     if (user) {
-      return 'user:' + user;
+      return user;
     }
     return new HttpException(
       'User with this email does not exist',

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthenticationVoluntarioService } from './authentication/authentication.service';
 import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
@@ -24,6 +25,7 @@ export class VoluntarioController {
   }
 
   @Post('/login')
+  @HttpCode(200)
   login(@Body() loginVoluntarioDto: LoginVoluntarioDto) {
     return this.voluntarioAuthentication.getAuthenticatedVoluntario(
       loginVoluntarioDto.email,

@@ -1,7 +1,12 @@
 import { CreateVoluntarioDto } from '../dto/create-voluntario.dto';
 import { VoluntarioService } from '../voluntario.service';
 import * as bcrypt from 'bcrypt';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { LoginVoluntarioDto } from '../dto/login-voluntario.dto';
 
 enum PostgresErrorCode {
@@ -40,8 +45,11 @@ export class AuthenticationVoluntarioService {
     }
   }
 
-  private async verifyPassword(hashedPassword: string) {
-    const isPasswordMatching = await bcrypt.compare('10', hashedPassword);
+  private async verifyPassword(hashedPassword: string, userComparae: string) {
+    const isPasswordMatching = await bcrypt.compare(
+      userComparae,
+      hashedPassword,
+    );
     if (!isPasswordMatching) {
       throw new HttpException(
         'Wrong credentials provided',
@@ -50,16 +58,22 @@ export class AuthenticationVoluntarioService {
     }
     return isPasswordMatching;
   }
-  public async getAuthenticatedVoluntario(email: string, hashPassword: string) {
+
+  public async getAuthenticatedVoluntario(email: string, password: string) {
     try {
-      const user = await this.voluntarioService.getByEmail(email);
-      const senhaok = await this.verifyPassword(hashPassword);
-      console.log(user);
-      if (user) {
-        console.log('Encontrou email');
-      }
-      if (senhaok) {
-        console.log('senha ok ' + senhaok);
+      let user: any;
+      const QueryUser = await this.voluntarioService
+        .getByEmail(email)
+        .then((res) => (user = JSON.stringify(res)));
+      user = JSON.parse(user);
+      const passwordCompare = await this.verifyPassword(
+        user.password,
+        password,
+      );
+      if (passwordCompare) {
+        return {
+          message: 'User login  witch sucess',
+        };
       }
     } catch (erro) {
       throw new HttpException(
