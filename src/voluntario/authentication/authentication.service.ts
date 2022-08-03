@@ -1,15 +1,15 @@
-import { CreateVoluntarioDto } from '../dto/create-voluntario.dto';
-import { VoluntarioService } from '../voluntario.service';
-import * as bcrypt from 'bcrypt';
 import {
   HttpCode,
   HttpException,
   HttpStatus,
   Injectable,
 } from '@nestjs/common';
-import { LoginVoluntarioDto } from '../dto/login-voluntario.dto';
+
+import { CreateVoluntarioDto } from '../dto/create-voluntario.dto';
+import { VoluntarioService } from '../voluntario.service';
 import { JwtService } from '@nestjs/jwt';
-import { access } from 'fs/promises';
+
+import * as bcrypt from 'bcrypt';
 
 enum PostgresErrorCode {
   UniqueViolation = '23505',
@@ -22,6 +22,9 @@ export class AuthenticationVoluntarioService {
   ) {}
 
   public async register(registration: CreateVoluntarioDto) {
+    //========================================================================
+    //                 Using script to encrypt the user's password
+    //=======================================================================
     const hashedPassword = await bcrypt.hash(registration.password, 10);
     try {
       const createVoluntario = await this.voluntarioService.createVoluntario({
@@ -29,10 +32,8 @@ export class AuthenticationVoluntarioService {
         password: hashedPassword,
       });
       const returnVoluntario = {
+        message: 'User register sucess',
         id: createVoluntario.id,
-        name: createVoluntario.username,
-        email: createVoluntario.email,
-        nascimento: createVoluntario.nascimento,
       };
 
       return returnVoluntario;
@@ -51,6 +52,10 @@ export class AuthenticationVoluntarioService {
   }
 
   private async verifyPassword(hashedPassword: string, userComparae: string) {
+    //=======================================================================
+    //   compares the user's typed password with the
+    //   encrypted one registered in the db
+    //=======================================================================
     const isPasswordMatching = await bcrypt.compare(
       userComparae,
       hashedPassword,
@@ -65,17 +70,26 @@ export class AuthenticationVoluntarioService {
   }
 
   public async getAuthenticatedVoluntario(email: string, password: string) {
+    //==============================================================================
+    // Method that checks the password, and generates JWT, through a private key
+    //==============================================================================
+
     try {
       let user: any;
+
+      // Verify email exist
       const QueryUser = await this.voluntarioService
         .getByEmail(email)
+        // Transform string in json, atribut in user
         .then((res) => (user = JSON.stringify(res)));
+
       user = JSON.parse(user);
       const passwordCompare = await this.verifyPassword(
         user.password,
         password,
       );
       if (passwordCompare) {
+        // Generaite JWT, case ok
         const payload = {
           id: user.id,
           email: user.email,

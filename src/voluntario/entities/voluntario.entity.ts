@@ -15,5 +15,5 @@ export default class Voluntario {
   @Column()
   public password: string;
   @Column()
-  public nascimento: string;
+  public birth: string;
 }

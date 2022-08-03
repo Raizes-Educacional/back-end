@@ -8,9 +8,9 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
+
 import { AuthenticationVoluntarioService } from './authentication/authentication.service';
 import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
-import { UpdateVoluntarioDto } from './dto/update-voluntario.dto';
 import { LoginVoluntarioDto } from './dto/login-voluntario.dto';
 
 @Controller('voluntario')

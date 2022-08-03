@@ -1,12 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
-import { UpdateVoluntarioDto } from './dto/update-voluntario.dto';
-import { LoginVoluntarioDto } from './dto/login-voluntario.dto';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import Voluntario from './entities/voluntario.entity';
 import { Repository } from 'typeorm/repository/Repository';
-import { string } from 'joi';
 
 @Injectable()
 export class VoluntarioService {

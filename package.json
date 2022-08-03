@@ -1,8 +1,8 @@
 {
   "name": "sistema-chamada",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Sistema de chamdas de alunos, desenvolvido para ong RAÍZES",
+  "author": "Gabriel Carlos Cavalcante",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import Voluntario from './entities/voluntario.entity';
 import { VoluntarioService } from './voluntario.service';
 import { VoluntarioController } from './voluntario.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import Voluntario from './entities/voluntario.entity';
 import { AuthenticationVoluntarioService } from './authentication/authentication.service';
-import { JwtModule } from '@nestjs/jwt';
+
 import * as dotenv from 'dotenv';
 dotenv.config();
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([Voluntario]),
