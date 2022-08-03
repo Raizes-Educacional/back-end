@@ -15,5 +15,7 @@ services:
       - "3000:3000"
     env_file:
     - .env
+    volumes:
+      - /home/devgabriel/Área de Trabalho/sistemaChamada/sistema-chamada:/app
     depends_on:
       - db

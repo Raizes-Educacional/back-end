@@ -54,6 +54,7 @@ export class AuthenticationVoluntarioService {
     try {
       const user = await this.voluntarioService.getByEmail(email);
       const senhaok = await this.verifyPassword(hashPassword);
+      console.log(user);
       if (user) {
         console.log('Encontrou email');
       }
@@ -62,7 +63,7 @@ export class AuthenticationVoluntarioService {
       }
     } catch (erro) {
       throw new HttpException(
-        'Wrong credentials provided',
+        'Wrong credentials provied',
         HttpStatus.BAD_REQUEST,
       );
     }
