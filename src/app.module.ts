@@ -10,13 +10,13 @@ dotenv.config();
   imports: [
     VoluntarioModule,
     TypeOrmModule.forRoot({
+      synchronize: true,
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       entities: [Voluntario],
-      synchronize: true,
     }),
   ],
   controllers: [AppController],

@@ -15,7 +15,7 @@ dotenv.config();
     TypeOrmModule.forFeature([Voluntario]),
     JwtModule.register({
       secret: process.env.JWT_KEY,
-      signOptions: { expiresIn: '10h' },
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   controllers: [VoluntarioController],

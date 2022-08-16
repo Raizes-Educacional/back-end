@@ -5,6 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: example
+      POSTGRES_DATABASE: raizes
     ports:
       - "5432:5432"
   api:
@@ -16,6 +17,6 @@ services:
     env_file:
     - .env
     volumes:
-      - /home/devgabriel/Área de Trabalho/sistemaChamada/sistema-chamada:/app
+      - ./:/app
     depends_on:
       - db

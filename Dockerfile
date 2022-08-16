@@ -10,6 +10,5 @@ COPY . .
 EXPOSE 3000
 
 RUN npm i -g @nestjs/cli
-RUN ls
 
 CMD nest start --watch

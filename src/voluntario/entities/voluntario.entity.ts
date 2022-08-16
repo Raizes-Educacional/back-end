@@ -14,6 +14,6 @@ export default class Voluntario {
   public email: string;
   @Column()
   public password: string;
-  @Column()
+  @Column({ type: 'date', nullable: true })
   public birth: string;
 }

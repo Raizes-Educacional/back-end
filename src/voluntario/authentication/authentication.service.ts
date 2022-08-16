@@ -95,6 +95,7 @@ export class AuthenticationVoluntarioService {
           email: user.email,
         };
         return {
+          statusCode: 200,
           message: 'User autheticantion sucess',
           token: this.jwtService.sign(payload),
         };
