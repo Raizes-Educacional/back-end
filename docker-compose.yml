@@ -3,14 +3,13 @@ services:
   db:
     image: postgres
     restart: always
-    environment:
-      POSTGRES_PASSWORD: example
-      POSTGRES_DATABASE: raizes
+    env_file:
+      - .env
     ports:
       - "5432:5432"
   api:
     build: './'
-    container_name: node_container
+    command: npm start
     restart: always
     ports:
       - "3000:3000"
