@@ -9,7 +9,7 @@ import { CreateVoluntarioDto } from '../dto/create-voluntario.dto';
 import { VoluntarioService } from '../voluntario.service';
 import { JwtService } from '@nestjs/jwt';
 
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 enum PostgresErrorCode {
   UniqueViolation = '23505',
