@@ -12,11 +12,27 @@ export class VoluntarioService {
     private voluntarioRepository: Repository<Voluntario>,
   ) {}
 
-  public createVoluntario(createVoluntarioDto: CreateVoluntarioDto) {
-    const newVoluntraio = this.voluntarioRepository.create(createVoluntarioDto);
-    this.voluntarioRepository.save(newVoluntraio);
-    return newVoluntraio;
+  async verifyIfExists(email: string) {
+    const user: object = await this.voluntarioRepository.findOneBy({ email });
+    if (user) {
+      return true;
+    }
+    return false;
   }
+
+  public createVoluntario(createVoluntarioDto: CreateVoluntarioDto) {
+    const emailExists = this.verifyIfExists(createVoluntarioDto.email);
+    if (emailExists) {
+      return;
+      console.error('Voluntario with that email already exists');
+    } else {
+      const newVoluntraio =
+        this.voluntarioRepository.create(createVoluntarioDto);
+      this.voluntarioRepository.save(newVoluntraio);
+      return newVoluntraio;
+    }
+  }
+
   async getByEmail(email: string) {
     const user: object = await this.voluntarioRepository.findOneBy({ email });
     if (user) {

@@ -26,31 +26,39 @@ export class AuthenticationVoluntarioService {
     //                 Using script to encrypt the user's password
     //=======================================================================
 
-    const hashedPassword = bcrypt.hashSync(registration.password, 10);
+    const emailExists = await this.voluntarioService.verifyIfExists(
+      registration.email,
+    );
 
-    console.log(hashedPassword);
-    try {
-      const createVoluntario = await this.voluntarioService.createVoluntario({
-        ...registration,
-        password: hashedPassword,
-      });
-      const returnVoluntario = {
-        message: 'User register sucess',
-        id: createVoluntario.id,
-      };
+    if (emailExists) {
+      return console.error('emailExists');
+    } else {
+      const hashedPassword = bcrypt.hashSync(registration.password, 10);
 
-      return returnVoluntario;
-    } catch (erro) {
-      if (erro?.code === PostgresErrorCode.UniqueViolation) {
+      try {
+        const createVoluntario = await this.voluntarioService.createVoluntario({
+          ...registration,
+          email: registration.email,
+          password: hashedPassword,
+        });
+        const returnVoluntario = {
+          message: 'User register sucess',
+          id: createVoluntario.id,
+        };
+
+        return returnVoluntario;
+      } catch (erro) {
+        if (erro?.code === PostgresErrorCode.UniqueViolation) {
+          throw new HttpException(
+            'Voluntario with that email already exists',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
         throw new HttpException(
-          'Voluntario with that email already exists',
-          HttpStatus.BAD_REQUEST,
+          'Something went wrong erro:' + erro,
+          HttpStatus.INTERNAL_SERVER_ERROR,
         );
       }
-      throw new HttpException(
-        'Something went weong erro:' + erro,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
     }
   }
 
