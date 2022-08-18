@@ -25,7 +25,10 @@ export class AuthenticationVoluntarioService {
     //========================================================================
     //                 Using script to encrypt the user's password
     //=======================================================================
-    const hashedPassword = await bcrypt.hash(registration.password, 10);
+
+    const hashedPassword = bcrypt.hashSync(registration.password, 10);
+
+    console.log(hashedPassword);
     try {
       const createVoluntario = await this.voluntarioService.createVoluntario({
         ...registration,
