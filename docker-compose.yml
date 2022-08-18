@@ -16,6 +16,6 @@ services:
     env_file:
     - .env
     volumes:
-      - ./:/app
+      - ./:/app --watch
     depends_on:
       - db
