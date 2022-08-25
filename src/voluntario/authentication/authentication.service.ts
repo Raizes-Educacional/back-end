@@ -31,7 +31,10 @@ export class AuthenticationVoluntarioService {
     );
 
     if (emailExists) {
-      return console.error('emailExists');
+      const ErrorEmailExists = {
+        Error: 'Voluntario with that email already exists',
+      };
+      return ErrorEmailExists;
     } else {
       const hashedPassword = bcrypt.hashSync(registration.password, 10);
 
@@ -55,7 +58,7 @@ export class AuthenticationVoluntarioService {
           );
         }
         throw new HttpException(
-          'Something went wrong erro:' + erro,
+          'Error:' + erro,
           HttpStatus.INTERNAL_SERVER_ERROR,
         );
       }

@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 
 import { AuthenticationVoluntarioService } from './authentication/authentication.service';
+import { VoluntarioService } from './voluntario.service';
 import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
 import { LoginVoluntarioDto } from './dto/login-voluntario.dto';
 
@@ -17,6 +18,7 @@ import { LoginVoluntarioDto } from './dto/login-voluntario.dto';
 export class VoluntarioController {
   constructor(
     private readonly voluntarioAuthentication: AuthenticationVoluntarioService,
+    private readonly voluntarioService: VoluntarioService,
   ) {}
 
   @Post('/register')
@@ -31,5 +33,10 @@ export class VoluntarioController {
       loginVoluntarioDto.email,
       loginVoluntarioDto.password,
     );
+  }
+
+  @Get('/email/:email')
+  findOne(@Param('email') email: string) {
+    return this.voluntarioService.getByEmail(email);
   }
 }
