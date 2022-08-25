@@ -40,23 +40,17 @@ export class AuthenticationVoluntarioService {
 
       try {
         const createVoluntario = await this.voluntarioService.createVoluntario({
-          ...registration,
+          username: registration.username,
           email: registration.email,
           password: hashedPassword,
+          birth: registration.birth,
         });
         const returnVoluntario = {
-          message: 'User register sucess',
-          id: createVoluntario.id,
+          message: 'User resgistracion was a success',
         };
 
         return returnVoluntario;
       } catch (erro) {
-        if (erro?.code === PostgresErrorCode.UniqueViolation) {
-          throw new HttpException(
-            'Voluntario with that email already exists',
-            HttpStatus.BAD_REQUEST,
-          );
-        }
         throw new HttpException(
           'Error:' + erro,
           HttpStatus.INTERNAL_SERVER_ERROR,
