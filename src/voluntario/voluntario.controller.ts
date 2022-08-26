@@ -22,21 +22,31 @@ export class VoluntarioController {
   ) {}
 
   @Post('/register')
-  register(@Body() createVoluntarioDto: CreateVoluntarioDto) {
+  register(@Body() createVoluntarioDto: CreateVoluntarioDto): Promise<object> {
     return this.voluntarioAuthentication.register(createVoluntarioDto);
   }
 
   @Post('/login')
   @HttpCode(200)
-  login(@Body() loginVoluntarioDto: LoginVoluntarioDto) {
+  login(@Body() loginVoluntarioDto: LoginVoluntarioDto): Promise<object> {
     return this.voluntarioAuthentication.getAuthenticatedVoluntario(
       loginVoluntarioDto.email,
       loginVoluntarioDto.password,
     );
   }
 
+  @Get('')
+  findAll(): Promise<object> {
+    return this.voluntarioService.getAll();
+  }
+
+  @Get(':id')
+  findOneId(@Param('id') id: number): Promise<object> {
+    return this.voluntarioService.getById(id);
+  }
+
   @Get('/email/:email')
-  findOne(@Param('email') email: string) {
+  findOneEmail(@Param('email') email: string): Promise<object> {
     return this.voluntarioService.getByEmail(email);
   }
 }

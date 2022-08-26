@@ -12,7 +12,7 @@ export class VoluntarioService {
     private voluntarioRepository: Repository<Voluntario>,
   ) {}
 
-  async verifyIfExists(email: string) {
+  async verifyIfExists(email: string): Promise<boolean> {
     const user: object = await this.voluntarioRepository.findOneBy({ email });
     if (user) {
       return true;
@@ -26,7 +26,7 @@ export class VoluntarioService {
     return newVoluntraio;
   }
 
-  async getByEmail(email: string) {
+  async getByEmail(email: string): Promise<object> {
     const user: object = await this.voluntarioRepository.findOneBy({ email });
     if (user) {
       return user;
@@ -35,5 +35,21 @@ export class VoluntarioService {
       'User with this email does not exist',
       HttpStatus.NOT_FOUND,
     );
+  }
+
+  async getById(id: number): Promise<object> {
+    const user: object = await this.voluntarioRepository.findOneBy({ id });
+    if (user) {
+      return user;
+    }
+    return new HttpException(
+      'User with this Id does not exist',
+      HttpStatus.NOT_FOUND,
+    );
+  }
+
+  async getAll(): Promise<object> {
+    const Query: object = await this.voluntarioRepository.find();
+    return Query;
   }
 }
