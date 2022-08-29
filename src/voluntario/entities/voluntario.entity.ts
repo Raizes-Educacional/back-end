@@ -17,3 +17,4 @@ export default class Voluntario {
   @Column({ type: 'date', nullable: true })
   public birth: string;
 }
+//Entity responsible for defining the formatting standard to be inserted in the database

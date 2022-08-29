@@ -8,8 +8,8 @@ import {
 import { CreateVoluntarioDto } from '../dto/create-voluntario.dto';
 import { VoluntarioService } from '../voluntario.service';
 import { JwtService } from '@nestjs/jwt';
-
 import * as bcrypt from 'bcryptjs';
+//imports
 
 enum PostgresErrorCode {
   UniqueViolation = '23505',
@@ -20,37 +20,48 @@ export class AuthenticationVoluntarioService {
     private readonly voluntarioService: VoluntarioService,
     private readonly jwtService: JwtService,
   ) {}
+  //Call of the Respectives Services that will be in use
 
   public async register(registration: CreateVoluntarioDto) {
     //========================================================================
     //                 Using script to encrypt the user's password
     //=======================================================================
 
-    const hashedPassword = bcrypt.hashSync(registration.password, 10);
+    const emailExists = await this.voluntarioService.verifyIfExists(
+      registration.email,
+    );
+    //Checks if the email sent to the registration is already present in the database
 
-    console.log(hashedPassword);
-    try {
-      const createVoluntario = await this.voluntarioService.createVoluntario({
-        ...registration,
-        password: hashedPassword,
-      });
-      const returnVoluntario = {
-        message: 'User register sucess',
-        id: createVoluntario.id,
+    if (emailExists) {
+      const ErrorEmailExists = {
+        Error: 'Voluntario with that email already exists',
       };
+      return ErrorEmailExists;
+      //Returns an Error Reporting Duplicate registry and Preventing The registry Creation
+    } else {
+      const hashedPassword = bcrypt.hashSync(registration.password, 10);
+      //Encrypt password using bcrypt
 
-      return returnVoluntario;
-    } catch (erro) {
-      if (erro?.code === PostgresErrorCode.UniqueViolation) {
+      try {
+        const createVoluntario = await this.voluntarioService.createVoluntario({
+          username: registration.username,
+          email: registration.email,
+          password: hashedPassword,
+          birth: registration.birth,
+        });
+        //Registry Creation
+        const returnVoluntario = {
+          message: 'User resgistracion was a success',
+        };
+        return returnVoluntario;
+        //Returns a Sucess Message
+      } catch (erro) {
         throw new HttpException(
-          'Voluntario with that email already exists',
-          HttpStatus.BAD_REQUEST,
+          'Error:' + erro,
+          HttpStatus.INTERNAL_SERVER_ERROR,
         );
+        //Returns an error message if it has any
       }
-      throw new HttpException(
-        'Something went weong erro:' + erro,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
     }
   }
 
