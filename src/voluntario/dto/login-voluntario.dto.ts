@@ -10,3 +10,5 @@ export class LoginVoluntarioDto {
   @IsString()
   password: string;
 }
+
+//Dto responsible for defining the pattern and validating the data before being passed to the database

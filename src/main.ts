@@ -3,10 +3,12 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv';
+//Imports
 
 dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -14,7 +16,11 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  //Class-validator settings for API data insertion
+
   app.enableCors();
+  //Cors Call
+
   const config = new DocumentBuilder()
     .setTitle('Sistema-Chamada-Raizes')
     .setDescription('Sistema de chamadas')
@@ -23,6 +29,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  //Swagger Call and Settings
+
   await app.listen(process.env.PORT);
 }
 bootstrap();

@@ -8,8 +8,8 @@ import {
 import { CreateVoluntarioDto } from '../dto/create-voluntario.dto';
 import { VoluntarioService } from '../voluntario.service';
 import { JwtService } from '@nestjs/jwt';
-
 import * as bcrypt from 'bcryptjs';
+//imports
 
 enum PostgresErrorCode {
   UniqueViolation = '23505',
@@ -20,6 +20,7 @@ export class AuthenticationVoluntarioService {
     private readonly voluntarioService: VoluntarioService,
     private readonly jwtService: JwtService,
   ) {}
+  //Call of the Respectives Services that will be in use
 
   public async register(registration: CreateVoluntarioDto) {
     //========================================================================
@@ -29,14 +30,17 @@ export class AuthenticationVoluntarioService {
     const emailExists = await this.voluntarioService.verifyIfExists(
       registration.email,
     );
+    //Checks if the email sent to the registration is already present in the database
 
     if (emailExists) {
       const ErrorEmailExists = {
         Error: 'Voluntario with that email already exists',
       };
       return ErrorEmailExists;
+      //Returns an Error Reporting Duplicate registry and Preventing The registry Creation
     } else {
       const hashedPassword = bcrypt.hashSync(registration.password, 10);
+      //Encrypt password using bcrypt
 
       try {
         const createVoluntario = await this.voluntarioService.createVoluntario({
@@ -45,16 +49,18 @@ export class AuthenticationVoluntarioService {
           password: hashedPassword,
           birth: registration.birth,
         });
+        //Registry Creation
         const returnVoluntario = {
           message: 'User resgistracion was a success',
         };
-
         return returnVoluntario;
+        //Returns a Sucess Message
       } catch (erro) {
         throw new HttpException(
           'Error:' + erro,
           HttpStatus.INTERNAL_SERVER_ERROR,
         );
+        //Returns an error message if it has any
       }
     }
   }

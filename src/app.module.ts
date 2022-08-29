@@ -4,6 +4,8 @@ import { VoluntarioModule } from './voluntario/voluntario.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import Voluntario from './voluntario/entities/voluntario.entity';
+//Imports
+
 dotenv.config();
 
 @Module({
@@ -18,6 +20,7 @@ dotenv.config();
       database: process.env.POSTGRES_DB,
       entities: [Voluntario],
     }),
+    //Connection settings with typeorm
   ],
   controllers: [AppController],
   providers: [],
