@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { VoluntarioModule } from './voluntario/voluntario.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MatriculaController } from './matricula/matricula.controller';
+import { MatriculaService } from './matricula/matricula.service';
 import * as dotenv from 'dotenv';
 import Voluntario from './voluntario/entities/voluntario.entity';
 //Imports
@@ -22,7 +24,7 @@ dotenv.config();
     }),
     //Connection settings with typeorm
   ],
-  controllers: [AppController],
-  providers: [],
+  controllers: [AppController, MatriculaController],
+  providers: [MatriculaService],
 })
 export class AppModule {}
