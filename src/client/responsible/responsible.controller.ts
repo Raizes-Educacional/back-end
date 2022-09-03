@@ -15,6 +15,7 @@ export class ResponsibleController {
   @Get()
   findAll() {
     return this.responsibleService.findAll();
+    //asd
   }
 
   @Get(':id')

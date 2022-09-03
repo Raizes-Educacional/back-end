@@ -19,7 +19,9 @@ export default class Responsible {
     email: string;
     @Column()
     is_responsible_for_transport: boolean;
-    @OneToOne(type => Student)
-    @JoinColumn({ name: 'id' })
-    id_student: Student
+
+    @OneToOne(() => Student)
+    @JoinColumn()
+    student: Student
+  
 }
