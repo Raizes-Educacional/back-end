@@ -2,10 +2,7 @@ import { IsString, IsNumber, IsDate, IsBoolean } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateResponsibleDto {
-    @ApiProperty()
-    @IsNumber()
-    id: number;
-
+    
     @ApiProperty()
     @IsString()
     name: string;

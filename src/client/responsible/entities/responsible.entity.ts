@@ -21,7 +21,7 @@ export default class Responsible {
     is_responsible_for_transport: boolean;
 
     @OneToOne(() => Student)
-    @JoinColumn()
+    @JoinColumn({ name: "id_student", referencedColumnName: 'id' })
     student: Student
   
 }
