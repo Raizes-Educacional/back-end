@@ -1,27 +1,31 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { VoluntarioModule } from './voluntario/voluntario.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ClientModule } from './client/client.module';
 import * as dotenv from 'dotenv';
-import Voluntario from './voluntario/entities/voluntario.entity';
+import { AdminModule } from './admin/admin.module';
+
+import Responsible from './client/responsible/entities/responsible.entity';
+import Student from './client/student/entities/student.entity';
+import Voluntario from './admin/voluntario/entities/voluntario.entity';
 //Imports
 
 dotenv.config();
 
 @Module({
   imports: [
-    VoluntarioModule,
     TypeOrmModule.forRoot({
-      synchronize: true,
+      synchronize: false,
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [Voluntario],
+      entities: [Voluntario, Student, Responsible],
     }),
+    AdminModule,
+    ClientModule,
     //Connection settings with typeorm
   ],
-  controllers: [AppController],
+  controllers: [],
 })
 export class AppModule {}
