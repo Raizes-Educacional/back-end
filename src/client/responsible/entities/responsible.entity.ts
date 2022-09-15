@@ -1,27 +1,32 @@
-import Student from "../../student/entities/student.entity";
-import { Column, PrimaryGeneratedColumn ,Entity, OneToOne, JoinColumn } from "typeorm";
+import Student from '../../student/entities/student.entity';
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity()
 export default class Responsible {
-    @PrimaryGeneratedColumn()
-    id: number;
-    @Column()
-    name: string
-    @Column()
-    rg: string;
-    @Column()
-    url_document: string;
-    @Column()
-    cell_phone: string;
-    @Column()
-    cell_phone_alternative: string;
-    @Column()
-    email: string;
-    @Column()
-    is_responsible_for_transport: boolean;
+  @PrimaryGeneratedColumn()
+  id: number;
+  @Column()
+  name: string;
+  @Column()
+  rg: string;
+  @Column()
+  url_document: string;
+  @Column()
+  cell_phone: string;
+  @Column()
+  cell_phone_alternative: string;
+  @Column()
+  email: string;
+  @Column()
+  is_responsible_for_transport: boolean;
 
-    @OneToOne(() => Student)
-    @JoinColumn({ name: "id_student", referencedColumnName: 'id' })
-    student: Student
-  
+  @OneToOne(() => Student)
+  @JoinColumn({ name: 'id_student', referencedColumnName: 'id' })
+  student: Student;
 }

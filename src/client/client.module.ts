@@ -3,6 +3,6 @@ import { ResponsibleModule } from './responsible/responsible.module';
 import { StudentModule } from './student/student.module';
 
 @Module({
-  imports: [ResponsibleModule, StudentModule]
+  imports: [ResponsibleModule, StudentModule],
 })
 export class ClientModule {}
