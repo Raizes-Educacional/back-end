@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Res,
+} from '@nestjs/common';
 import { ResponsibleService } from './responsible.service';
 import { Request, Response } from 'express';
 import { CreateResponsibleDto } from './dto/create-responsible.dto';
@@ -16,7 +25,6 @@ export class ResponsibleController {
   @Get()
   findAll() {
     return this.responsibleService.findAll();
-    //asd
   }
 
   @Get(':id')
@@ -25,9 +33,11 @@ export class ResponsibleController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateResponsibleDto: UpdateResponsibleDto): Promise<void> {
-    return  this.responsibleService.update(+id, updateResponsibleDto)
-    
+  update(
+    @Param('id') id: string,
+    @Body() updateResponsibleDto: UpdateResponsibleDto,
+  ): Promise<void> {
+    return this.responsibleService.update(+id, updateResponsibleDto);
   }
 
   @Delete(':id')

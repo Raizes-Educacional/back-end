@@ -1,18 +1,15 @@
 
-import { IsString, IsNumber,  IsDate ,IsBoolean } from "class-validator";
+import { IsString, IsNumber,  IsDateString ,IsBoolean } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateStudentDto {
-    @ApiProperty()
-    @IsNumber()
-    id: number;
 
     @ApiProperty()
     @IsString()
     name: string;
 
     @ApiProperty()
-    @IsDate()
+    @IsDateString()
     birth: Date;
 
     @ApiProperty()
@@ -71,3 +68,4 @@ export class CreateStudentDto {
     @IsBoolean()
     has_time_disponibility: boolean;
 }
+

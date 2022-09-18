@@ -14,7 +14,7 @@ dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      synchronize: false,
+      synchronize: true,
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
       username: process.env.POSTGRES_USER,

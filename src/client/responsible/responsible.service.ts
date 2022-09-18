@@ -42,7 +42,7 @@ export class ResponsibleService {
       ""NewREsponsible constant was created because it was not finding the id_student 
       property in the typeOrm, because in the entity we have to define the property 
       as Student, to refer to another table, however, in the database it is named id_student,
-      so I created this object""
+      so I created this object
       /*==============================================================================*/
       const NewResponsible: any = {
         name: createResponsibleDto.name,

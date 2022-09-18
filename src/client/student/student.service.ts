@@ -11,8 +11,10 @@ export class StudentService {
     @InjectRepository(Student)
     private studentRespository: Repository<Student>
   ){}
-  create(createStudentDto: CreateStudentDto) {
-    return 'This action adds a new student';
+ 
+  async create(createStudentDto: CreateStudentDto): Promise<Student> {
+    const student = await this.studentRespository.create(createStudentDto);
+    return this.studentRespository.save(student)
   }
 
   async findAll() {
@@ -27,15 +29,25 @@ export class StudentService {
       }
       return result
     } catch (error) {
-      return new HttpException(error, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+  async update(id: number, updateStudentDto: UpdateStudentDto) {
+      try {
+        const reusult = await this.findOne(+id);
+        return this.studentRespository.update(+id, updateStudentDto)
+      } catch (error) {
+        throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR)
+      }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  async remove(id: number) {
+      try{
+         return await this.studentRespository.delete(id)
+
+      }catch(erro){
+        throw new HttpException(`${erro}`, HttpStatus.INTERNAL_SERVER_ERROR)
+      }
   }
 }
