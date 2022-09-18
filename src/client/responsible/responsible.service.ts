@@ -14,10 +14,18 @@ import Responsible from './entities/responsible.entity';
 
 @Injectable()
 export class ResponsibleService {
+  private FileRgImage:any;
   constructor(
     @InjectRepository(Responsible)
-    private responsibleRespository: Repository<Responsible>,
+    private responsibleRespository: Repository<Responsible>, 
   ) {}
+
+  setFileRgImage(value){
+    return this.FileRgImage = value
+  }
+  getFileRgImage(){
+    return this.FileRgImage
+  }
 
   async findAll(): Promise<Responsible[]> {
     return await this.responsibleRespository.find();
@@ -119,4 +127,9 @@ export class ResponsibleService {
       );
     }
   }
+  async updateImage(file) {
+    this.setFileRgImage(file)
+    return file
+  }
+
 }

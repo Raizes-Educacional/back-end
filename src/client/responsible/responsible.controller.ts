@@ -7,7 +7,11 @@ import {
   Param,
   Delete,
   Res,
+  UploadedFile,
+  UseInterceptors,
+  
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ResponsibleService } from './responsible.service';
 import { Request, Response } from 'express';
 import { CreateResponsibleDto } from './dto/create-responsible.dto';
@@ -16,6 +20,12 @@ import { UpdateResponsibleDto } from './dto/update-responsible.dto';
 @Controller('responsible')
 export class ResponsibleController {
   constructor(private readonly responsibleService: ResponsibleService) {}
+
+  @Post('file')
+  @UseInterceptors(FileInterceptor('file'))
+  upload(@UploadedFile() file: Express.Multer.File){
+    return this.responsibleService.updateImage(file)
+  }
 
   @Post()
   create(@Body() createResponsibleDto: CreateResponsibleDto) {
