@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { VoluntarioController } from './voluntario.controller';
-import { VoluntarioService } from './voluntario.service';
+import { VoluntarioController } from './voluntary.controller';
+import { VoluntarioService } from './voluntary.service';
 
 describe('VoluntarioController', () => {
   let controller: VoluntarioController;

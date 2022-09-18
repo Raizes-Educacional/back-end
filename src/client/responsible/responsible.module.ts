@@ -10,7 +10,7 @@ import { StudentModule } from '../student/student.module';
   TypeOrmModule.forFeature([Responsible]), 
 ],
   controllers: [ResponsibleController],
-  providers: []
+  providers: [ResponsibleService]
 })
 
 export class ResponsibleModule {}

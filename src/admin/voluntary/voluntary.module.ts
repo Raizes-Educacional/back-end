@@ -3,8 +3,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import Voluntario from './entities/voluntario.entity';
-import { VoluntarioService } from './voluntario.service';
-import { VoluntarioController } from './voluntario.controller';
+import { VoluntarioService } from './voluntary.service';
+import { VoluntarioController } from './voluntary.controller';
 import { AuthenticationVoluntarioService } from './authentication/authentication.service';
 import * as dotenv from 'dotenv';
 //imports
