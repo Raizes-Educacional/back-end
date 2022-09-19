@@ -9,12 +9,12 @@ import Student from './entities/student.entity';
 export class StudentService {
   constructor(
     @InjectRepository(Student)
-    private studentRespository: Repository<Student>
-  ){}
- 
+    private studentRespository: Repository<Student>,
+  ) {}
+
   async create(createStudentDto: CreateStudentDto): Promise<Student> {
     const student = await this.studentRespository.create(createStudentDto);
-    return this.studentRespository.save(student)
+    return this.studentRespository.save(student);
   }
 
   async findAll() {
@@ -23,31 +23,30 @@ export class StudentService {
 
   async findOne(id: number) {
     try {
-      const result = await this.studentRespository.findOneBy({id})
-      if(result === null){
-        throw new HttpException('not found', HttpStatus.NOT_FOUND)
+      const result = await this.studentRespository.findOneBy({ id });
+      if (result === null) {
+        throw new HttpException('not found', HttpStatus.NOT_FOUND);
       }
-      return result
+      return result;
     } catch (error) {
-      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR)
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   async update(id: number, updateStudentDto: UpdateStudentDto) {
-      try {
-        const reusult = await this.findOne(+id);
-        return this.studentRespository.update(+id, updateStudentDto)
-      } catch (error) {
-        throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR)
-      }
+    try {
+      const result = await this.findOne(+id);
+      return this.studentRespository.update(+id, updateStudentDto);
+    } catch (error) {
+      throw new HttpException(`${error}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async remove(id: number) {
-      try{
-         return await this.studentRespository.delete(id)
-
-      }catch(erro){
-        throw new HttpException(`${erro}`, HttpStatus.INTERNAL_SERVER_ERROR)
-      }
+    try {
+      return await this.studentRespository.delete(id);
+    } catch (erro) {
+      throw new HttpException(`${erro}`, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }

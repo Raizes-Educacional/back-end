@@ -9,51 +9,51 @@ import {
   HttpCode,
 } from '@nestjs/common';
 
-import { AuthenticationVoluntarioService } from './authentication/authentication.service';
-import { VoluntarioService } from './voluntary.service';
-import { CreateVoluntarioDto } from './dto/create-voluntary.dto';
-import { LoginVoluntarioDto } from './dto/login-voluntary.dto';
+import { AuthenticationVoluntaryService } from './authentication/authentication.service';
+import { VoluntaryService } from './voluntary.service';
+import { CreateVoluntaryDto } from './dto/create-voluntary.dto';
+import { LoginVoluntaryDto } from './dto/login-voluntary.dto';
 //imports
 
-@Controller('voluntario')
-export class VoluntarioController {
+@Controller('voluntary')
+export class VoluntaryController {
   constructor(
-    private readonly voluntarioAuthentication: AuthenticationVoluntarioService,
-    private readonly voluntarioService: VoluntarioService,
+    private readonly voluntaryAuthentication: AuthenticationVoluntaryService,
+    private readonly voluntaryService: VoluntaryService,
   ) {}
   //Call of the Services that will be used in that respective controller
 
   @Post('/register')
-  register(@Body() createVoluntarioDto: CreateVoluntarioDto): Promise<object> {
-    return this.voluntarioAuthentication.register(createVoluntarioDto);
+  register(@Body() createVoluntaryDto: CreateVoluntaryDto): Promise<object> {
+    return this.voluntaryAuthentication.register(createVoluntaryDto);
   }
-  //POST route dedicated to voluntario registration
+  //POST route dedicated to voluntary registration
 
   @Post('/login')
   @HttpCode(200)
-  login(@Body() loginVoluntarioDto: LoginVoluntarioDto): Promise<object> {
-    return this.voluntarioAuthentication.getAuthenticatedVoluntario(
-      loginVoluntarioDto.email,
-      loginVoluntarioDto.password,
+  login(@Body() loginVoluntaryDto: LoginVoluntaryDto): Promise<object> {
+    return this.voluntaryAuthentication.getAuthenticatedVoluntary(
+      loginVoluntaryDto.email,
+      loginVoluntaryDto.password,
     );
   }
-  //POST route dedicated to voluntario login
+  //POST route dedicated to voluntary login
 
   @Get('')
   findAll(): Promise<object> {
-    return this.voluntarioService.getAll();
+    return this.voluntaryService.getAll();
   }
-  // GET route dedicated to returning all records from the voluntario table
+  // GET route dedicated to returning all records from the voluntary table
 
   @Get(':id')
   findOneId(@Param('id') id: number): Promise<object> {
-    return this.voluntarioService.getById(id);
+    return this.voluntaryService.getById(id);
   }
-  // GET route dedicated to returning a voluntario table record from an Id
+  // GET route dedicated to returning a voluntary table record from an Id
 
   @Get('/email/:email')
   findOneEmail(@Param('email') email: string): Promise<object> {
-    return this.voluntarioService.getByEmail(email);
+    return this.voluntaryService.getByEmail(email);
   }
-  // GET route dedicated to returning a voluntario table record from an Email
+  // GET route dedicated to returning a voluntary table record from an Email
 }

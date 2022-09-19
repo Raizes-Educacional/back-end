@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import Voluntario from './entities/voluntario.entity';
-import { VoluntarioService } from './voluntary.service';
-import { VoluntarioController } from './voluntary.controller';
-import { AuthenticationVoluntarioService } from './authentication/authentication.service';
+import Voluntary from './entities/voluntary.entity';
+import { VoluntaryService } from './voluntary.service';
+import { VoluntaryController } from './voluntary.controller';
+import { AuthenticationVoluntaryService } from './authentication/authentication.service';
 import * as dotenv from 'dotenv';
 //imports
 
@@ -13,14 +13,14 @@ dotenv.config();
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Voluntario]),
+    TypeOrmModule.forFeature([Voluntary]),
     JwtModule.register({
       secret: process.env.JWT_KEY,
       signOptions: { expiresIn: '7d' },
     }),
   ],
-  controllers: [VoluntarioController],
-  providers: [VoluntarioService, AuthenticationVoluntarioService],
-  exports: [VoluntarioService, JwtModule, AuthenticationVoluntarioService],
+  controllers: [VoluntaryController],
+  providers: [VoluntaryService, AuthenticationVoluntaryService],
+  exports: [VoluntaryService, JwtModule, AuthenticationVoluntaryService],
 })
-export class VoluntarioModule {}
+export class VoluntaryModule {}

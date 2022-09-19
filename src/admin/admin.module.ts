@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { VoluntarioModule } from './voluntary/voluntary.module';
+import { VoluntaryModule } from './voluntary/voluntary.module';
 
 @Module({
-    imports: [VoluntarioModule],
-    controllers: [],
-    providers: [],
-    exports: []
+  imports: [VoluntaryModule],
+  controllers: [],
+  providers: [],
+  exports: [],
 })
 export class AdminModule {}

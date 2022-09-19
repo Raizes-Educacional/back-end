@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateVoluntarioDto } from './create-voluntary.dto';
+import { CreateVoluntaryDto } from './create-voluntary.dto';
 
-export class UpdateVoluntarioDto extends PartialType(CreateVoluntarioDto) {
+export class UpdateVoluntaryDto extends PartialType(CreateVoluntaryDto) {
   id: number;
 }

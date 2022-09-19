@@ -1,10 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export default class Voluntario {
+export default class Voluntary {
   @PrimaryGeneratedColumn({
     type: 'bigint',
-    name: 'voluntario_id',
+    name: 'voluntary_id',
   })
   public id?: number;
 

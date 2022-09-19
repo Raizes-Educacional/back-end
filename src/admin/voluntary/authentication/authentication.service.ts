@@ -5,8 +5,8 @@ import {
   Injectable,
 } from '@nestjs/common';
 
-import { CreateVoluntarioDto } from '../dto/create-voluntary.dto';
-import { VoluntarioService } from '../voluntary.service';
+import { CreateVoluntaryDto } from '../dto/create-voluntary.dto';
+import { VoluntaryService } from '../voluntary.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 //imports
@@ -15,26 +15,26 @@ enum PostgresErrorCode {
   UniqueViolation = '23505',
 }
 @Injectable()
-export class AuthenticationVoluntarioService {
+export class AuthenticationVoluntaryService {
   constructor(
-    private readonly voluntarioService: VoluntarioService,
+    private readonly voluntaryService: VoluntaryService,
     private readonly jwtService: JwtService,
   ) {}
   //Call of the Respectives Services that will be in use
 
-  public async register(registration: CreateVoluntarioDto) {
+  public async register(registration: CreateVoluntaryDto) {
     //========================================================================
     //                 Using script to encrypt the user's password
     //=======================================================================
 
-    const emailExists = await this.voluntarioService.verifyIfExists(
+    const emailExists = await this.voluntaryService.verifyIfExists(
       registration.email,
     );
     //Checks if the email sent to the registration is already present in the database
 
     if (emailExists) {
       const ErrorEmailExists = {
-        Error: 'Voluntario with that email already exists',
+        Error: 'Voluntary with that email already exists',
       };
       return ErrorEmailExists;
       //Returns an Error Reporting Duplicate registry and Preventing The registry Creation
@@ -43,17 +43,17 @@ export class AuthenticationVoluntarioService {
       //Encrypt password using bcrypt
 
       try {
-        const createVoluntario = await this.voluntarioService.createVoluntario({
+        const createVoluntary = await this.voluntaryService.createVoluntary({
           username: registration.username,
           email: registration.email,
           password: hashedPassword,
           birth: registration.birth,
         });
         //Registry Creation
-        const returnVoluntario = {
+        const returnVoluntary = {
           message: 'User resgistracion was a success',
         };
-        return returnVoluntario;
+        return returnVoluntary;
         //Returns a Sucess Message
       } catch (erro) {
         throw new HttpException(
@@ -83,7 +83,7 @@ export class AuthenticationVoluntarioService {
     return isPasswordMatching;
   }
 
-  public async getAuthenticatedVoluntario(email: string, password: string) {
+  public async getAuthenticatedVoluntary(email: string, password: string) {
     //==============================================================================
     // Method that checks the password, and generates JWT, through a private key
     //==============================================================================
@@ -92,7 +92,7 @@ export class AuthenticationVoluntarioService {
       let user: any;
 
       // Verify email exist
-      const QueryUser = await this.voluntarioService
+      const QueryUser = await this.voluntaryService
         .getByEmail(email)
         // Transform string in json, atribut in user
         .then((res) => (user = JSON.stringify(res)));
