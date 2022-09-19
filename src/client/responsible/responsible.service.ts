@@ -1,35 +1,34 @@
-import {
-  HttpCode,
-  HttpException,
-  Injectable,
-  Req,
-  HttpStatus,
-} from '@nestjs/common';
+import { HttpException, Injectable, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { CreateResponsibleDto } from './dto/create-responsible.dto';
 import { UpdateResponsibleDto } from './dto/update-responsible.dto';
 import Responsible from './entities/responsible.entity';
+//Imports
 
 @Injectable()
 export class ResponsibleService {
-  private FileRgImage:any;
+  private FileRgImage: any;
   constructor(
     @InjectRepository(Responsible)
-    private responsibleRespository: Repository<Responsible>, 
+    private responsibleRespository: Repository<Responsible>,
   ) {}
 
-  setFileRgImage(value){
-    return this.FileRgImage = value
+  setFileRgImage(value) {
+    return (this.FileRgImage = value);
   }
-  getFileRgImage(){
-    return this.FileRgImage
+  //Function that assigns the FileRgImage a value
+
+  getFileRgImage() {
+    return this.FileRgImage;
   }
+  //Function that returns the FileRgImage's value
 
   async findAll(): Promise<Responsible[]> {
     return await this.responsibleRespository.find();
   }
+  //Returns all records from the Repository
 
   async findOne(id: number): Promise<any> {
     try {
@@ -44,10 +43,12 @@ export class ResponsibleService {
       );
     }
   }
+  //Returns a record corresponding to the "Id" field
+
   async create(createResponsibleDto: CreateResponsibleDto) {
     try {
       /*==============================================================================
-      ""NewREsponsible constant was created because it was not finding the id_student 
+      ""NewResponsible constant was created because it was not finding the id_student 
       property in the typeOrm, because in the entity we have to define the property 
       as Student, to refer to another table, however, in the database it is named id_student,
       so I created this object
@@ -79,6 +80,7 @@ export class ResponsibleService {
       );
     }
   }
+  //Receive data passed from a Dto and insert it into its respective Repository
 
   async update(
     id: number,
@@ -112,6 +114,7 @@ export class ResponsibleService {
       }
     }
   }
+  //Receive data passed from a Dto and update it into its respective Repository
 
   async remove(id: number) {
     try {
@@ -127,9 +130,11 @@ export class ResponsibleService {
       );
     }
   }
-  async updateImage(file) {
-    this.setFileRgImage(file)
-    return file
-  }
+  //removes a record using the "id" as a parameter
 
+  async updateImage(file) {
+    this.setFileRgImage(file);
+    return file;
+  }
+  //updates the Rgimage and returns the new file
 }

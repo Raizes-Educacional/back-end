@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsDateString, IsBoolean } from 'class-validator';
+import { IsString, IsDateString, IsBoolean } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateStudentDto {
@@ -66,3 +66,4 @@ export class CreateStudentDto {
   @IsBoolean()
   has_time_disponibility: boolean;
 }
+//Entity responsible for defining the formatting standard to be inserted in the database

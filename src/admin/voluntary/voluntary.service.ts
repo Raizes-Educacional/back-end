@@ -26,7 +26,7 @@ export class VoluntaryService {
     this.voluntaryRepository.save(newVoluntary);
     return newVoluntary;
   }
-  // Receive data passed from a Dto and insert it into its respective Repository
+  //Receive data passed from a Dto and insert it into its respective Repository
 
   async getByEmail(email: string): Promise<object> {
     const user: object = await this.voluntaryRepository.findOneBy({ email });
