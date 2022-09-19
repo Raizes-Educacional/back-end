@@ -1,5 +1,5 @@
 import { OneToOne, JoinColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import Voluntario from 'src/admin/voluntario/entities/voluntario.entity';
+import Voluntaryy from 'src/admin/voluntary/entities/voluntary.entity';
 import Cycle from 'src/admin/cycle/entities/cycle.entity';
 import Matter from 'src/admin/matter/entities/matter.entity';
 
@@ -7,9 +7,9 @@ import Matter from 'src/admin/matter/entities/matter.entity';
 export default class Teacher {
   @PrimaryGeneratedColumn()
   public id: number;
-  @OneToOne(() => Voluntario)
+  @OneToOne(() => Voluntaryy)
   @JoinColumn({ name: 'id_voluntario', referencedColumnName: 'voluntario_id' })
-  voluntary: Voluntario;
+  voluntary: Voluntaryy;
   @OneToOne(() => Cycle)
   @JoinColumn({ name: 'id_cycle', referencedColumnName: 'id' })
   cycle: Cycle;

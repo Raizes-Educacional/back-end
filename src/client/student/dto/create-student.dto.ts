@@ -1,73 +1,69 @@
-
-import { IsString, IsNumber,  IsDate ,IsBoolean } from "class-validator";
+import { IsString, IsDateString, IsBoolean } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateStudentDto {
-    @ApiProperty()
-    @IsNumber()
-    id: number;
+  @ApiProperty()
+  @IsString()
+  name: string;
 
-    @ApiProperty()
-    @IsString()
-    name: string;
+  @ApiProperty()
+  @IsDateString()
+  birth: Date;
 
-    @ApiProperty()
-    @IsDate()
-    birth: Date;
+  @ApiProperty()
+  @IsBoolean()
+  has_special_needs: boolean;
 
-    @ApiProperty()
-    @IsBoolean()
-    has_special_needs:  Boolean;
+  @ApiProperty()
+  @IsString()
+  cellphone: string;
 
-    @ApiProperty()
-    @IsString()
-    cellphone: string;
+  @ApiProperty()
+  @IsString()
+  email: string;
 
-    @ApiProperty()
-    @IsString()
-    email: string;
+  @ApiProperty()
+  @IsString()
+  address: string;
 
-    @ApiProperty()
-    @IsString()
-    address: string;
+  @ApiProperty()
+  @IsString()
+  address_number: string;
 
-    @ApiProperty()
-    @IsString()
-    address_number: string;
-   
-    @ApiProperty()
-    @IsString()
-    zipcode: string;
-   
-    @ApiProperty()
-    @IsString()
-    complement: string;
+  @ApiProperty()
+  @IsString()
+  zipcode: string;
 
-    @ApiProperty()
-    @IsString()
-    district: string;
-    
-    @ApiProperty()
-    @IsString()
-    city: string;
+  @ApiProperty()
+  @IsString()
+  complement: string;
 
-    @ApiProperty()
-    @IsString()
-    school: string;
-    
-    @ApiProperty()
-    @IsString()
-    year_shool: string;
-    
-    @ApiProperty()
-    @IsString()
-    origin: string;
- 
-    @ApiProperty()
-    @IsBoolean()
-    has_online_disponibility: boolean;
+  @ApiProperty()
+  @IsString()
+  district: string;
 
-    @ApiProperty()
-    @IsBoolean()
-    has_time_disponibility: boolean;
+  @ApiProperty()
+  @IsString()
+  city: string;
+
+  @ApiProperty()
+  @IsString()
+  school: string;
+
+  @ApiProperty()
+  @IsString()
+  year_shool: string;
+
+  @ApiProperty()
+  @IsString()
+  origin: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  has_online_disponibility: boolean;
+
+  @ApiProperty()
+  @IsBoolean()
+  has_time_disponibility: boolean;
 }
+//Entity responsible for defining the formatting standard to be inserted in the database

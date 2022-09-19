@@ -6,7 +6,7 @@ import { AdminModule } from './admin/admin.module';
 
 import Responsible from './client/responsible/entities/responsible.entity';
 import Student from './client/student/entities/student.entity';
-import Voluntario from './admin/voluntario/entities/voluntario.entity';
+import Voluntary from './admin/voluntary/entities/voluntary.entity';
 //Imports
 
 dotenv.config();
@@ -14,13 +14,13 @@ dotenv.config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      synchronize: false,
+      synchronize: true,
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [Voluntario, Student, Responsible],
+      entities: [Voluntary, Student, Responsible],
     }),
     AdminModule,
     ClientModule,

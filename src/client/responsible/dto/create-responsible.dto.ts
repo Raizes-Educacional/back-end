@@ -1,42 +1,37 @@
-import { IsString, IsNumber, IsDate, IsBoolean } from "class-validator";
-import { ApiProperty } from "@nestjs/swagger";
-
+import { IsString, IsNumber, IsBoolean } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 export class CreateResponsibleDto {
-    
-    @ApiProperty()
-    @IsString()
-    name: string;
+  @ApiProperty()
+  @IsString()
+  name: string;
 
-    @ApiProperty()
-    @IsString()
-    rg: string;
+  @ApiProperty()
+  @IsString()
+  rg: string;
 
-    @ApiProperty()
-    @IsString()
-    url_document: string;
+  @ApiProperty()
+  @IsString()
+  url_document: string;
 
-    @ApiProperty()
-    @IsString()
-    cell_phone: string;
+  @ApiProperty()
+  @IsString()
+  cell_phone: string;
 
+  @ApiProperty()
+  @IsString()
+  cell_phone_alternative: string;
 
-    @ApiProperty()
-    @IsString()
-    cell_phone_alternative: string;
+  @ApiProperty()
+  @IsString()
+  email: string;
 
-    
-    @ApiProperty()
-    @IsString()
-    email: string;
+  @ApiProperty()
+  @IsBoolean()
+  is_responsible_for_transport: boolean;
 
-    
-    @ApiProperty()
-    @IsBoolean()
-    is_responsible_for_transport: boolean;
-
-    @ApiProperty()
-    @IsNumber()
-    id_student: number
-    
-
+  @ApiProperty()
+  @IsNumber()
+  id_student: number;
 }
+
+//Dto responsible for defining the pattern and validating the data before being passed to the database

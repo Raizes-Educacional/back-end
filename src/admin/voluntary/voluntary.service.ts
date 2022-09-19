@@ -1,19 +1,19 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
+import { CreateVoluntaryDto } from './dto/create-voluntary.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import Voluntario from './entities/voluntario.entity';
+import Voluntary from './entities/voluntary.entity';
 import { Repository } from 'typeorm/repository/Repository';
 //Imports
 
 @Injectable()
-export class VoluntarioService {
+export class VoluntaryService {
   constructor(
-    @InjectRepository(Voluntario)
-    private voluntarioRepository: Repository<Voluntario>,
+    @InjectRepository(Voluntary)
+    private voluntaryRepository: Repository<Voluntary>,
   ) {}
 
   async verifyIfExists(email: string): Promise<boolean> {
-    const user: object = await this.voluntarioRepository.findOneBy({ email });
+    const user: object = await this.voluntaryRepository.findOneBy({ email });
     if (user) {
       return true;
     }
@@ -21,15 +21,15 @@ export class VoluntarioService {
   }
   //Check if a record exists from the "email" field returning true or false
 
-  public createVoluntario(createVoluntarioDto: CreateVoluntarioDto) {
-    const newVoluntraio = this.voluntarioRepository.create(createVoluntarioDto);
-    this.voluntarioRepository.save(newVoluntraio);
-    return newVoluntraio;
+  public createVoluntary(createVoluntaryDto: CreateVoluntaryDto) {
+    const newVoluntary = this.voluntaryRepository.create(createVoluntaryDto);
+    this.voluntaryRepository.save(newVoluntary);
+    return newVoluntary;
   }
-  // Receive data passed from a Dto and insert it into its respective Repository
+  //Receive data passed from a Dto and insert it into its respective Repository
 
   async getByEmail(email: string): Promise<object> {
-    const user: object = await this.voluntarioRepository.findOneBy({ email });
+    const user: object = await this.voluntaryRepository.findOneBy({ email });
     if (user) {
       return user;
     }
@@ -42,7 +42,7 @@ export class VoluntarioService {
   //Returns a record corresponding to the "email" field
 
   async getById(id: number): Promise<object> {
-    const user: object = await this.voluntarioRepository.findOneBy({ id });
+    const user: object = await this.voluntaryRepository.findOneBy({ id });
     if (user) {
       return user;
     }
@@ -54,7 +54,7 @@ export class VoluntarioService {
   //Returns a record corresponding to the "Id" field
 
   async getAll(): Promise<object> {
-    const Query: object = await this.voluntarioRepository.find();
+    const Query: object = await this.voluntaryRepository.find();
     return Query;
   }
   //Returns all records from the Repository
