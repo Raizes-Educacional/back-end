@@ -34,7 +34,7 @@ export class AuthenticationVoluntaryService {
 
     if (emailExists) {
       const ErrorEmailExists = {
-        Error: 'Voluntary with that email already exists',
+        Error: 'Voluntaryy with that email already exists',
       };
       return ErrorEmailExists;
       //Returns an Error Reporting Duplicate registry and Preventing The registry Creation
@@ -44,10 +44,13 @@ export class AuthenticationVoluntaryService {
 
       try {
         const createVoluntary = await this.voluntaryService.createVoluntary({
-          username: registration.username,
+          fullname: registration.fullname,
           email: registration.email,
           password: hashedPassword,
-          birth: registration.birth,
+          birthdate: registration.birthdate,
+          cellphone: registration.cellphone,
+          city: registration.city,
+          state: registration.state,
         });
         //Registry Creation
         const returnVoluntary = {

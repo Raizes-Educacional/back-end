@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  CreateDateColumn,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export default class Voluntary {
@@ -17,9 +22,9 @@ export default class Voluntary {
   @Column()
   public password: string;
   @Column({ type: 'date', nullable: true })
-  public birthdate: string;
-  @Column({ type: 'date', nullable: true })
-  public member_since: string;
+  public birthdate: Date;
+  @CreateDateColumn()
+  public member_since: Date;
   @Column()
   public city: string;
   @Column()

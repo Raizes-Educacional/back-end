@@ -4,7 +4,11 @@ import { IsString } from 'class-validator';
 export class CreateVoluntaryDto {
   @ApiProperty()
   @IsString()
-  username: string;
+  fullname: string;
+
+  @ApiProperty()
+  @IsString()
+  cellphone: string;
 
   @ApiProperty()
   @IsString()
@@ -16,7 +20,15 @@ export class CreateVoluntaryDto {
 
   @ApiProperty()
   @IsString()
-  birth: string;
+  birthdate: Date;
+
+  @ApiProperty()
+  @IsString()
+  city: string;
+
+  @ApiProperty()
+  @IsString()
+  state: string;
 }
 
 //Dto responsible for defining the pattern and validating the data before being passed to the database
