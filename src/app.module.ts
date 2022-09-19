@@ -27,6 +27,5 @@ dotenv.config();
     //Connection settings with typeorm
   ],
   controllers: [],
-  providers: [],
 })
 export class AppModule {}

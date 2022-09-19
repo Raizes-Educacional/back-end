@@ -9,12 +9,20 @@ export default class Voluntario {
   public id?: number;
 
   @Column()
-  public username: string;
+  public fullname: string;
+  @Column()
+  public cellphone: string;
   @Column({ unique: true, name: 'email' })
   public email: string;
   @Column()
   public password: string;
   @Column({ type: 'date', nullable: true })
-  public birth: string;
+  public birthdate: string;
+  @Column({ type: 'date', nullable: true })
+  public member_since: string;
+  @Column()
+  public city: string;
+  @Column()
+  public state: string;
 }
 //Entity responsible for defining the formatting standard to be inserted in the database
