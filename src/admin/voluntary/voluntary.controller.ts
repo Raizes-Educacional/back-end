@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 
 import { AuthenticationVoluntarioService } from './authentication/authentication.service';
-import { VoluntarioService } from './voluntario.service';
-import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
-import { LoginVoluntarioDto } from './dto/login-voluntario.dto';
+import { VoluntarioService } from './voluntary.service';
+import { CreateVoluntarioDto } from './dto/create-voluntary.dto';
+import { LoginVoluntarioDto } from './dto/login-voluntary.dto';
 //imports
 
 @Controller('voluntario')

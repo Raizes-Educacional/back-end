@@ -11,7 +11,7 @@ services:
       - "5432:5432"
   api:
     build: './'
-    command: nest start --watch
+    command: npm run start:dev
     restart: always
     ports:
       - "3000:3000"

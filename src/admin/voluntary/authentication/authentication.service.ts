@@ -5,8 +5,8 @@ import {
   Injectable,
 } from '@nestjs/common';
 
-import { CreateVoluntarioDto } from '../dto/create-voluntario.dto';
-import { VoluntarioService } from '../voluntario.service';
+import { CreateVoluntarioDto } from '../dto/create-voluntary.dto';
+import { VoluntarioService } from '../voluntary.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 //imports

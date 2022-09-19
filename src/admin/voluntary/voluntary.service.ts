@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateVoluntarioDto } from './dto/create-voluntario.dto';
+import { CreateVoluntarioDto } from './dto/create-voluntary.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import Voluntario from './entities/voluntario.entity';
 import { Repository } from 'typeorm/repository/Repository';
