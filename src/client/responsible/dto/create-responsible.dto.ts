@@ -11,7 +11,11 @@ export class CreateResponsibleDto {
 
     @ApiProperty()
     @IsString()
-    url_document: string;
+    fileRgbase64: string;
+
+    @ApiProperty()
+    @IsString()
+    contentType: string;
 
     @ApiProperty()
     @IsString()

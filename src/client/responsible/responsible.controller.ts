@@ -21,12 +21,6 @@ import { UpdateResponsibleDto } from './dto/update-responsible.dto';
 export class ResponsibleController {
   constructor(private readonly responsibleService: ResponsibleService) {}
 
-  @Post('file')
-  @UseInterceptors(FileInterceptor('file'))
-  upload(@UploadedFile() file: Express.Multer.File){
-    return this.responsibleService.updateImage(file)
-  }
-
   @Post()
   create(@Body() createResponsibleDto: CreateResponsibleDto) {
     return this.responsibleService.create(createResponsibleDto);

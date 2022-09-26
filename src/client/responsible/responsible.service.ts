@@ -11,21 +11,15 @@ import { Repository } from 'typeorm';
 import { CreateResponsibleDto } from './dto/create-responsible.dto';
 import { UpdateResponsibleDto } from './dto/update-responsible.dto';
 import Responsible from './entities/responsible.entity';
-
+import * as AWS from 'aws-sdk'
 @Injectable()
 export class ResponsibleService {
-  private FileRgImage:any;
   constructor(
     @InjectRepository(Responsible)
     private responsibleRespository: Repository<Responsible>, 
   ) {}
 
-  setFileRgImage(value){
-    return this.FileRgImage = value
-  }
-  getFileRgImage(){
-    return this.FileRgImage
-  }
+  
 
   async findAll(): Promise<Responsible[]> {
     return await this.responsibleRespository.find();
@@ -52,10 +46,14 @@ export class ResponsibleService {
       as Student, to refer to another table, however, in the database it is named id_student,
       so I created this object
       /*==============================================================================*/
+      const url_document_rg = await this.updateFileRg(
+         createResponsibleDto.name,
+         createResponsibleDto.fileRgbase64, 
+         createResponsibleDto.contentType)
       const NewResponsible: any = {
         name: createResponsibleDto.name,
         rg: createResponsibleDto.rg,
-        url_document: createResponsibleDto.url_document,
+        url_document: url_document_rg,
         cell_phone: createResponsibleDto.cell_phone,
         cell_phone_alternative: createResponsibleDto.cell_phone_alternative,
         email: createResponsibleDto.email,
@@ -94,7 +92,6 @@ export class ResponsibleService {
         const NewResponsible: any = {
           name: updateResponsibleDto.name,
           rg: updateResponsibleDto.rg,
-          url_document: updateResponsibleDto.url_document,
           cell_phone: updateResponsibleDto.cell_phone,
           cell_phone_alternative: updateResponsibleDto.cell_phone_alternative,
           email: updateResponsibleDto.email,
@@ -127,9 +124,30 @@ export class ResponsibleService {
       );
     }
   }
-  async updateImage(file) {
-    this.setFileRgImage(file)
-    return file
+  async updateFileRg( name, file, mimetype){
+    const AWS_S3_BUCKET = process.env.AWS_S3_BUCKET;
+    const s3 = new AWS.S3({
+        accessKeyId: process.env.AWS_S3_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_S3_KEY_SECRET,
+    });
+    const params = {
+            Bucket: AWS_S3_BUCKET,
+            Key: String(name),
+            Body: file,
+            ACL: "public-read",
+            ContentType: mimetype,
+            ContentDisposition:"inline",
+            CreateBucketConfiguration: 
+            {
+                LocationConstraint: process.env.AWS_DEFAULT_REGION
+            }
+        };
+        return await new Promise((resolve, reject) => {
+            s3.upload(params, function (err, data) {
+            if (err) return reject(err);
+    
+            return resolve(data.Location);
+          });
+        })
   }
-
 }
